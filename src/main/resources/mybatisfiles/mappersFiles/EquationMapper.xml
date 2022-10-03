@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE mapper PUBLIC '-//mybatis.org//DTD Mapper 3.0//EN'
+        'http://mybatis.org/dtd/mybatis-3-mapper.dtd'>
+
+<mapper namespace="databases.services.mappers.IEquationMapper">
+
+    <select id="getById" parameterType="Long" resultMap="EquationResult">
+        SELECT * FROM Equation WHERE id =#{id}
+    </select>
+
+    <resultMap id="EquationResult" type="Equation">
+        <id property="id" column="id"/>
+        <result property="A" column="A"/>
+        <result property="B" column="B"/>
+        <result property="C" column="C"/>
+    </resultMap>
+
+    <select id="getAllEquation" resultMap="EquationResult">
+        SELECT * FROM Equation
+    </select>
+
+    <insert id="insert" parameterType="Equation" useGeneratedKeys="true"
+            keyProperty="id" >
+        INSERT INTO Equation(A,B,C)
+        VALUES (#{A},#{B},#{C})
+    </insert>
+
+    <update id="update" parameterType="Equation">
+        UPDATE Equation
+        SET
+            A = #{A},
+            B = #{B},
+            C = #{C},
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM Equation WHERE id= #{id}
+    </delete>
+
+</mapper>
